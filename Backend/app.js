@@ -1,11 +1,38 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const swaggerJSDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
+// const swaggerJSDoc = require("swagger-jsdoc");
+// const swaggerUi = require("swagger-ui-express");
+// const client = require("prom-client");
+
 app.use(cors());
 app.use(express.json()); //why??
 require("dotenv").config();
+
+// const register = new client.Registry();
+// client.collectDefaultMetrics({ register });
+
+// const httpRequestDurationMicroseconds = new client.Histogram({
+//   name: "http_request_duration_seconds",
+//   help: "Duration of HTTP requests in seconds",
+//   labelNames: ["method", "route", "status"],
+//   buckets: [0.1, 0.5, 1, 2, 5], // Buckets for response time
+// });
+
+// register.registerMetric(httpRequestDurationMicroseconds);
+// app.use((req, res, next) => {
+//   const end = httpRequestDurationMicroseconds.startTimer();
+//   res.on("finish", () => {
+//     end({ method: req.method, route: req.path, status: res.statusCode });
+//   });
+//   next();
+// });
+
+// Expose metrics endpoint for Prometheus
+// app.get("/metrics", async (req, res) => {
+//   res.set("Content-Type", register.contentType);
+//   res.end(await register.metrics());
+// });
 
 // const swaggerOptions = {
 //   definition: {
@@ -64,7 +91,7 @@ const claimroute = require("./src/routes/claimroute");
 
 app.get("/", (req, res) => {
   console.log("Welcome to the server");
-  res.send(console.log("Welcome to the server"));
+  res.send("Welcome to the server");
 });
 
 app.use("/policy", policyroute);
